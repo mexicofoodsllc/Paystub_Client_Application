@@ -171,7 +171,7 @@
                  
             	<ul class="nav navbar-nav navbar-right">
                     <li style="color:#ba150f;">
-						<form:form action="/logout" method="post">
+						<form:form action="logout" method="post">
   							 <input type="submit" value="Logout">
   						</form:form>
         			</li>
