@@ -126,7 +126,7 @@
 	 else{
 	                 
 	                    // var authToken = xhr.getResponseHeader('Authorization');
-	                     console.log(authToken);
+	                     //console.log(authToken);
 	                     sessionStorage.setItem('token', authToken);
 	 $("#login-form").submit();
 	                 

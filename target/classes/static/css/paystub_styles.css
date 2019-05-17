@@ -1,67 +1,126 @@
- .navbar-color{
-  	background-color:#EC1313;
-	margin-top: 145px;
-	padding: 3pc;
-	font-size:20px
-  }
-  h3{
-	font-size:20px;
-  }
-.custom-select {
-  position: relative;
-  font-family: Arial;
-}
-.custom-select select {
-  display: none; /*hide original SELECT element:*/
-}
+.navbar-color {
+            margin-top: 60px;
+            padding: 1pc;
+            font-size: 20px;
+        }
+        
+      .navbar-inverse {
+			border-color:white;
+		}
 
-.select-selected {
-  background-color: #EC1313;
-}
+		.calenderdiv_style{
+			width: 40%;
+			color: #777;
+            font: 15px "HelveticaNeue-Roman", sans-serif;
+		}
+		.jumbatron{
+			-webkit-box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2) !important;
+   			-moz-box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2) !important;
+   			box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2) !important;
+		}
+        
+		 .paystub_btn{
+        	    background-color: #ba150f;
+    			margin: 50px;
+   				color: white;
+    			border: #eee;
+    			padding: 13px;
+    			font-size: 15px;
+        }
+        
 
-/*style the arrow inside the select element:*/
-.select-selected:after {
-  position: absolute;
-  content: "";
-  top: 14px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-}
+        .pay_div{
+        	    color: #777;
+            	font: 15px "HelveticaNeue-Roman", sans-serif;
+            
+        }
+		
+	   .pay_span{
+		padding: 15px;
+		margin:10px;
+		}
+		
+		.pay_period{
+			margin: 28px;
+		}
+		
+		.net_pay{
+		 margin: 31px;
+		 }
+        
+        h2{
+        	    color: #ba150f;
+    			
+        }
+        
+        .table {
+   			 table-layout: fixed;
+			 width: 100%;
+			 cursor: pointer;
+   		}
+   		
+        th{
+       		width:110px;
+        }
 
-/*point the arrow upwards when the select box is open (active):*/
-.select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 7px;
-}
+        .noPay{
+        	background-color: yellow;
+   			width: 50%;
+   			border-style: solid;
+  			border-color: black;
+  			padding:10px;
+        }
+        .logout{
+		
+		  }
+        
+		.hide{
+			display: none; 
+		}
+        .nav>li:hover {
+            /* background-color: #b85855; 
+            background-color: #9c0702;*/
+            background-color: transparent;
+            opacity: 0.6 !important;
+        }
 
-/*style the items (options), including the selected item:*/
-.select-items div,.select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
-  user-select: none;
-}
+     
 
-/*style items (options):*/
-.select-items {
-  position: absolute;
-  background-color: #EC1313;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
+        .latestPaycheckNetPayLabel,
+        .latestPaycheckNetPayNumber {
+            font-weight: bold;
+            width:110px;
+        }
 
-/*hide the items when the select box is closed:*/
-.select-hide {
-  display: none;
-}
+       .selectedPaystyle{
+       	    border-top: none;
+       }
+		
+        /* On screens that are 900px or less (tablet), set the background color to olive */
+        @media screen and (max-width: 900px) {
+            .pay_div {
+                font-size: 18px;
+            }
+        }
 
-.select-items div:hover, .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
-}
+         /* On screens that are 600px(mobile) or less, set the below properties */
+         @media screen and (max-width: 600px) {
+            .pay_div {
+                font-size: 15px;
+                bottom: 315px;
+                right: 10%;
+                 
+ 			}
+        }
+        
+        /* modal properties */
+     .modal-body {
+    	max-height: calc(100vh - 200px);
+    	overflow-y: auto;
+	}
+	
+        
+     .print{
+    	 background: #ba150f;
+    	 border-color: #ba150f !important;
+     }
