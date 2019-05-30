@@ -95,42 +95,84 @@
    <!-- Latest compiled JavaScript -->
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
- <script>
+  <script>
  
  $('#login').click(function(e) {
 
 	 var password = $('#password').val()
 	 sessionStorage.setItem('pwd', password)
-
-
-	     var dataPayload = {
+	 var authorizationHeader;
+	 var isLoginSuccess = false;
+	     
+    var dataPayload = {
 	                "userName" : password,
-	                "password" : password
+	                "password" : password,
 	         };
+    
+ /*   $.ajaxSetup({
+        "contentType" : "application/json"
+});
 
-	         $.ajax({
-	                 url: "http://ec2-3-214-24-168.compute-1.amazonaws.com:8080/paystubWS/login",
+
+    
+    
+    
+    
+    $.post(
+                  'http://ec2-3-90-133-23.compute-1.amazonaws.com:8080/paystubWS/login',
+                    JSON.stringify(dataPayload)).done(
+                     function(data, status, xhr) {
+                    	 console.log(status);
+                     
+                         if (status === "success") {
+                                 // login success
+                                 isLoginSuccess = true;
+                                 var authorizationHeader = xhr.getResponseHeader('Authorization');
+                                 console.log(authorizationHeader);
+                                 sessionStorage.setItem('authToken', authorizationHeader)
+                                 $("#login-form").submit();
+                                  }
+
+
+						if (isLoginSuccess === false) {
+						// Login failed
+						 e.preventDefault();
+    	                 console.log("Password is incorrect");
+    	                 
+    	                 $('.pwdinvalid').html("Password is incorrect!");
+						}
+                     });
+   */
+	        $.ajax({
+	                 url: "http://ec2-3-214-24-168.compute-1.amazonaws.com:8080/paystubWS1/login",
 	                 data:JSON.stringify(dataPayload),
 	                 type:'POST',
+	                 async: false,
+	                 timeout: 10000,
 	                 contentType: 'application/json',
 	         
 	             }).then(function(data,status, xhr) {
-	            	 var authToken = xhr.getResponseHeader('Authorization');
-	 if (authToken == null) {
-					 e.preventDefault();
-	                 //console.log("Password is incorrect");
-	                 
-	                 $('.pwdinvalid').html("Password is incorrect!");
-	                        
+	            	 console.log(data);
+	            	 console.log("status",status);
+	             
+                     if (status === "success") {
+                         // login success
+                         isLoginSuccess = true;
+                         var authorizationHeader = xhr.getResponseHeader('Authorization');
+                         sessionStorage.setItem('authToken', authorizationHeader)
+                  
+                        $("#login-form").submit();
+                        
 	                 }
-	 else{
-	                 
-	                    // var authToken = xhr.getResponseHeader('Authorization');
-	                     //console.log(authToken);
-	                     sessionStorage.setItem('token', authToken);
-	 $("#login-form").submit();
-	                 
-	 }       
+                     else if(isLoginSuccess === false ) {
+                         // Login failed
+                    	 //e.preventDefault();
+    	                 console.log("Password is incorrect");
+    	                 
+    	                // $('.pwdinvalid').html("Password is incorrect!");
+    	                 
+         			}
+     
 	          
 	             });
  });
