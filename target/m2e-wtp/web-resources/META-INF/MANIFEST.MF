@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: paystub_webapplication
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: jipsam
+Implementation-Vendor-Id: com.elrancho.paystubwebapp
+Build-Jdk: 1.8.0_201
+Implementation-URL: http://projects.spring.io/spring-boot/paystub_weba
+ pplication/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
