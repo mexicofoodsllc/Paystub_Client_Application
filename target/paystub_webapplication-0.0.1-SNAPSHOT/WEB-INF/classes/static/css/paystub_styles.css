@@ -8,25 +8,22 @@
 			border-color:white;
 		}
 
-		.calenderdiv_style{
+		/*.calenderdiv_style{
 			width: 40%;
 			color: #777;
             font: 15px "HelveticaNeue-Roman", sans-serif;
-		}
+		}*/
+		
+		.empStyle{ 
+		 	font-weight: bold;
+    	 	font-size: 16px;
+   		 	color: #ba150f;
+       }
 		.jumbatron{
 			-webkit-box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2) !important;
    			-moz-box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2) !important;
    			box-shadow: 0px 3px 11px 2px rgba(0,0,0,0.2) !important;
 		}
-        
-		 .paystub_btn{
-        	    background-color: #ba150f;
-    			margin: 50px;
-   				color: white;
-    			border: #eee;
-    			padding: 13px;
-    			font-size: 15px;
-        }
         
 
         .pay_div{
@@ -54,7 +51,7 @@
         }
         
         .table {
-   			 table-layout: fixed;
+   			 table-layout: auto;
 			 width: 100%;
 			 cursor: pointer;
    		}
@@ -71,6 +68,8 @@
   			padding:10px;
         }
         .logout{
+            background-color: transparent;
+    		border: none;
 		
 		  }
         
@@ -124,3 +123,6 @@
     	 background: #ba150f;
     	 border-color: #ba150f !important;
      }
+     
+     
+   

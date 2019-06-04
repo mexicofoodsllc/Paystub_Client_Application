@@ -17,6 +17,10 @@
 			font-size:15px !important;
 			color:red;
 		}
+		.fontstyle{
+			font-size:15px !important;
+			color:grey;
+		}
 	</style>
 	<script>
 	$( function() {
@@ -47,10 +51,10 @@
 <body>
    <div class="container">
    
-  	<h2 style="text-align:center"><strong>Password</strong></h2>
+  	<h2 style="text-align:center"><strong>Set up password</strong></h2>
   	
   <div class="jumbotron">
-  	<h3>Set up password</h3>
+  	<h4 class="fontstyle">Please choose password that is alphanumeric and minimum 6 characters long </h4>
     <form:form action="pwdValid" method="post">
         <div class="form-group">
      		New Password  <input type="password" name="pwd1" id="pwd1" minlength="6" class="form-control" placeholder="New Password" required/>

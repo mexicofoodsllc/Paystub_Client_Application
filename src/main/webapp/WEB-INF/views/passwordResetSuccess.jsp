@@ -147,31 +147,21 @@
    	                "password" : password
    	         };
 
-   	         $.ajax({
-   	                 url: "http://ec2-3-214-24-168.compute-1.amazonaws.com:8080/paystubWS/login",
-   	                 data:JSON.stringify(dataPayload),
-   	                 type:'POST',
-   	                 contentType: 'application/json',
-   	         
-   	             }).then(function(data,status, xhr) {
-   	            	 var authToken = xhr.getResponseHeader('Authorization');
-   	 if (authToken == null) {
-   					 e.preventDefault();
-   	                 console.log("Password is incorrect");
-   	                 
-   	                 $('.pwdinvalid').html("Password is incorrect!");
-   	                        
-   	                 }
-   	 else{
-   	                 
-   	                    
-   	                     //console.log(authToken);
-   	                     sessionStorage.setItem('token', authToken);
-   	 $("#pwdreset-form").submit();
-   	                 
-   	 }       
-   	          
-   	             });
+   	 $.ajax({
+         url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/login",
+         data:JSON.stringify(dataPayload),
+         type:'POST',
+         async: false,
+         timeout: 10000,
+         contentType: 'application/json',
+ 
+     }).done(function(data,status, xhr) {
+
+          sessionStorage.setItem('authToken', xhr.getResponseHeader('Authorization'));
+			$("#pwdreset-form").submit();
+              
+  
+     });
     });
 	</script>
      

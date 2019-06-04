@@ -12,10 +12,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //restrict access based on HttpServletRequest
               .anyRequest().permitAll();
-
-        http.authorizeRequests()
-        		.and()
-        		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
-
+       
+        http .csrf().disable();
+       /* http.authorizeRequests()
+		.and()
+		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");*/
 	}
 }

@@ -15,7 +15,7 @@ public class HomeController {
 	//returns index.jsp
    @GetMapping("/login")
    public String login(Model model) {
-	   model.addAttribute("isLoginTrue", false); 
+	  // model.addAttribute("isLoginTrue", false); 
       return "index";
    }
    
@@ -39,12 +39,12 @@ public class HomeController {
    
    @PostMapping("/paystubSummary")
    public String paystubSummary(Model model) {
-	   model.addAttribute("ispaySelected", false);
+	  // model.addAttribute("ispaySelected", false);
 	   return "paystubSummary";
    }
    
  
- @RequestMapping(value="/fetch_paystub")
+/* @RequestMapping(value="/fetch_paystub")
  
    public String fetchResult() { 
 	
@@ -62,6 +62,6 @@ public class HomeController {
    @PostMapping("/logout")
    public String logout() {
       return "index";
-   }
+   }*/
 }
 

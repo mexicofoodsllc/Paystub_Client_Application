@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,10 +13,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    <script>src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"</script>
+   <!--  <script>src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"</script>  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.1/jspdf.plugin.autotable.js"></script>
   	<link href="css/paystub_styles.css"  rel="stylesheet">
 	<script src="js/paystubApp.js"></script> 
@@ -39,12 +40,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             	
-                <h2><strong>Paystub Home</strong></h2>
+                <center><h2><strong>Pay Stub Portal</strong></h2></center>
                  
             	<ul class="nav navbar-nav navbar-right">
                     <li style="color:#ba150f;">
 						<form:form action="logout" method="post">
-  							 <input type="submit" value="Logout">
+							<!-- <img src="images/logout.jpg" width="50" height="50" style="margin-left: 10px;"  id="img"/><br> -->
+  							 <input type="submit" class="logout" value="Logout" id="logout">
   						</form:form>
         			</li>
              	</ul>
@@ -54,17 +56,18 @@
     
 
     <div class="container">
+    	<div id="empId" class="text-primary empStyle"></div>
+    	<div id="empName" class="text-primary empStyle"></div>
         <div class="jumbotron">
             
-            <div class="calenderdiv_style">
-			</div>
+
 
            <div id="totalPaySummary" class="pay_div">
             	
                  <table class="table table-hover" id="summaryTable">
 				  <thead>
 				    <tr>
-				    	<th>PAY DATE</th>
+				    	<th>PAY PERIOD END DATE</th>
      					<th>GROSS PAY</th>
      					<th>NET PAY</th>
      					<th>HOURS</th>
@@ -74,7 +77,7 @@
 
 				  </tbody>
 				  </table>
-            </div>   
+            </div>  
             
             <div id="jumbatron_wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:5px;">
           		<img src="images/popup_loading.gif" width="64" height="64" />
@@ -90,8 +93,22 @@
         				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         				<center><h4 class="modal-title">Pay Stub Details</h4></center>
       				</div>
-      			<div class="modal-body">
-      			
+      			<div class="modal-body" id="printableArea">
+      				<div id="employerDetails" class="hidden">
+            	
+                 <table id="employerTable">
+                 	 <thead>
+                 	 	<tr>
+                 	 		<th style="width: 50%;">EMPLOYER</th>
+                 	 		<th style="width: 50%;">EMPLOYEE</th>
+                 	 	</tr>
+	                 </thead>
+					 <tbody>
+					  </tbody>
+				  </table>
+            </div>
+            
+   			
       			    <div id="modal_wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;">
           				<img src="images/popup_loading.gif" width="64" height="64" />
             		</div> 
@@ -129,8 +146,8 @@
                 		<table class="table table-hover deductionTable" id="deductionTable"> 
 			                <thead>
 			                  <tr>
-			    				<th class="PaycheckLabel" style="width: 40%;">Deductions</th>
-			    				<th class="PaycheckLabel" style="width: 29%;">Current</th> 
+			    				<th class="PaycheckLabel">Deductions</th>
+			    				<th class="PaycheckLabel">Current</th> 
 			    				<th class="PaycheckLabel">Year to Date</th>
 			 				  </tr>
 			                </thead>
@@ -142,7 +159,8 @@
                			 <table class="table table-hover totalPayTable" id="totalPayTable">
                			  <thead>
 			                  <tr>
-			    				<th class="PaycheckLabel" style="width: 50%;">Gross Pay</th>
+			    				<th class="PaycheckLabel" style="width: 33.3%;">Gross Pay</th>
+			    				<th class="PaycheckLabel" style="width: 33.3%;">Deductions</th>
 			    				<th class="PaycheckLabel">Net Pay</th> 
 			 				  </tr>
 			               </thead>

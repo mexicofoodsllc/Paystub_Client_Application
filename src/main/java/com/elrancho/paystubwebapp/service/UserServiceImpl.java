@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 		return isActive;
 	}
 
+	
 	@Override
 	public boolean passwordValidator(String password) {
 		boolean isValid = false;

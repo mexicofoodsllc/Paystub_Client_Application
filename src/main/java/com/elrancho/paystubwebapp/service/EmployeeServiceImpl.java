@@ -28,15 +28,20 @@ public class EmployeeServiceImpl implements EmployeeService{
 	//checking if an employee is active by 
 	@Override
 	public boolean activeEmployeeCheck(int empid) {
-		String status = null;
+		
 		boolean isActive=true;
 		
 		Employee emp = employeeRepository.findByEmployeeId(empid);
-		status = emp.getStatus();
-		if(status.equalsIgnoreCase("A")) //comparing with active flag "A" from employee table
+		
+		if(emp==null) {
+			isActive=false;
+		}
+		
+		else if(emp.getStatus().equalsIgnoreCase("A")) //comparing with active flag "A" from employee table
 				isActive=true;	
-			else
-				isActive=false;
+		else
+			isActive=false;
+		
 		return isActive;
 	}
 	

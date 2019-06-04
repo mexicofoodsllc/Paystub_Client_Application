@@ -4,14 +4,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-	<!-- Static content -->
-
+<!-- <script src="js/paystubApp.js"></script>  -->
+<script type='text/javascript'></script>
 	
 	<title>Employee Login</title>
 	
-	<script type='text/javascript'>
-
-	</script>
+	
 	<style>
 
 		.margin{
@@ -38,7 +36,7 @@
          /* On screens that are 900px or less, set set the jumbotron width*/
         @media screen and (max-width: 900px) {
             .jumbotron {
-                 width: 50%;
+                 width: 60%;
             }
         }
          /* On screens that are 600px or less, set the jumbotron width */
@@ -53,29 +51,29 @@
    <div class="container">
 
   	<img src="https://s3.amazonaws.com/wbd.employer-images/01984_logo_1522248608_v.jpg" width="200" height="200"/>
-  <div class="jumbotron margin">
+ <div class="jumbotron margin">
   
-    <form:form  action="home" method="post" id="login-form">
+    <form action="home" method="post" id="login-form">
     	<p>Employee Login<p>
 
     	<div class="form-group">
      		<input type="password" name="pwd" id="password" minlength="6" class="form-control" placeholder="Password" required/>
 			<div class="pwdinvalid"></div>
         </div>
-		     <!-- <input type="hidden"
+		      <!--  <input type="hidden"
             name="${_csrf.parameterName}"
-            value="${_csrf.token}"/> -->
+            value="${_csrf.token}"/>-->
         <div class="form-group"> 
               <input type="button" id="login" value="Login" class="btn btn-primary btn-default button_style" />
         </div>
-     </form:form>
+     </form>
    
    	<div class="bottom-container">
-   		<form:form action="register" method="post">
+   		<form action="register" method="post">
    			<div class="form-group">
 	  			<input type="submit"class="btn btn-primary btn-default button_style" value="Register"/>
 	  		</div>
-	  	</form:form>
+	  	</form>
 	  	<form:form action="forgotpwd" method="post">
 	  		<div class="form-group">
 	  			<input type="submit"class="btn btn-primary btn-danger" value="Forgot Password?"/>
@@ -97,42 +95,83 @@
 
  <script>
  
+ $(document).on('keypress',function(e) {
+     if(e.which == 13) {
+    	 
+    	 var password = $('#password').val()
+    	 sessionStorage.setItem('pwd', password)
+    	 var authorizationHeader;
+    	 var isLoginSuccess = false;
+    	     
+        var dataPayload = {
+    	                "userName" : password,
+    	                "password" : password,
+    	         };
+        
+    	        $.ajax({
+    	                 url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/login",
+    	                 data:JSON.stringify(dataPayload),
+    	                 type:'POST',
+    	                 async: false,
+    	                 timeout: 10000,
+    	                 contentType: 'application/json',
+    	                 
+    	             }).done(function(data,status, xhr) {
+                  		 sessionStorage.setItem('authToken', xhr.getResponseHeader('Authorization'));
+                         isLoginSuccess = true;
+               	   		 $("#login-form").submit();
+               	   		 
+    	             });
+     }
+    	        if(isLoginSuccess === false ) {
+                    // Login failed
+               	 
+	       			console.log("Password is incorrect"); 
+	                $('.pwdinvalid').html("Password is incorrect!");
+	                e.preventDefault();
+	                 
+    			}
+     
+ }); 
+ 
  $('#login').click(function(e) {
 
 	 var password = $('#password').val()
 	 sessionStorage.setItem('pwd', password)
-
-
-	     var dataPayload = {
+	 var authorizationHeader;
+	 var isLoginSuccess = false;
+	     
+    var dataPayload = {
 	                "userName" : password,
-	                "password" : password
+	                "password" : password,
 	         };
-
-	         $.ajax({
-	                 url: "http://ec2-3-214-24-168.compute-1.amazonaws.com:8080/paystubWS/login",
+    
+	        $.ajax({
+	                 url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/login",
 	                 data:JSON.stringify(dataPayload),
 	                 type:'POST',
+	                 async: false,
+	                 timeout: 10000,
 	                 contentType: 'application/json',
-	         
-	             }).then(function(data,status, xhr) {
-	            	 var authToken = xhr.getResponseHeader('Authorization');
-	 if (authToken == null) {
-					 e.preventDefault();
-	                 //console.log("Password is incorrect");
 	                 
-	                 $('.pwdinvalid').html("Password is incorrect!");
-	                        
-	                 }
-	 else{
-	                 
-	                    // var authToken = xhr.getResponseHeader('Authorization');
-	                     //console.log(authToken);
-	                     sessionStorage.setItem('token', authToken);
-	 $("#login-form").submit();
-	                 
-	 }       
-	          
+	             }).done(function(data,status, xhr) {
+              		 sessionStorage.setItem('authToken', xhr.getResponseHeader('Authorization'));
+                     isLoginSuccess = true;
+           	   		 $("#login-form").submit();
+           	   		 
 	             });
+               	    
+       if(isLoginSuccess === false ) {
+                         // Login failed
+                    	 
+    	       console.log("Password is incorrect"); 
+    	                $('.pwdinvalid').html("Password is incorrect!");
+    	                e.preventDefault();
+    	                 
+         			}
+     
+      
+	           
  });
 
  </script>

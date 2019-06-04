@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<div class="jumbatron">
-			<h1>Your Account is already setup! Please login <a href="http://ec2-3-90-133-23.compute-1.amazonaws.com:8080/paystub_webapp-0.0.1-SNAPSHOT/login">here</a></h1>
+			<h1>Your Account is already setup! Please login <a href="http://ec2-3-214-24-168.compute-1.amazonaws.com:8080/paystubApp/login">here</a></h1>
 		</div>
 	</div>
 </body>
