@@ -2,13 +2,15 @@
     	   
         	 var token = sessionStorage.getItem('authToken');
           	 var pwd = sessionStorage.getItem('pwd');
+          	var userName = sessionStorage.getItem('userName');
+          	 
     	   
     	   
     	 
           	 
     	 //call to get employee details
         	 $.ajax({
-		         url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/employee/" +pwd,
+		         url: "https://www.mxf-employeepaystub.com/paystubWS/employee/" +userName,
 		         type:'GET',
 		         contentType: 'application/json',
 		         beforeSend: function (xhr) {
@@ -33,10 +35,12 @@
 		     })
         	 //paystub summary
         	 
-        	 var url1 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/paystubs/dates/" + pwd;
-        	 var url2 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/paystubs/grossPays/" + pwd;
-        	 var url3 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/paystubs/netPays/" + pwd;
-        	 var url4 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/paystubs/hours/" + pwd;
+		     var url1 = "https://www.mxf-employeepaystub.com/paystubWS/paystubs/checkNum/" + userName;
+        	 var url2 = "https://www.mxf-employeepaystub.com/paystubWS/paystubs/dates/" + userName;
+        	 var url3 = "https://www.mxf-employeepaystub.com/paystubWS/paystubs/grossPays/" + userName;
+        	 var url4 = "https://www.mxf-employeepaystub.com/paystubWS/paystubs/netPays/" + userName;
+        	 var url5 = "https://www.mxf-employeepaystub.com/paystubWS/paystubs/hours/" + userName;
+        	 
 		     
 
         	 
@@ -55,14 +59,17 @@
         	 var a2 = getUserData(url2);
         	 var a3 = getUserData(url3);
         	 var a4 = getUserData(url4);
-        	 $.when(a1, a2, a3, a4).done(function (r1, r2, r3, r4) {
+        	 var a5 = getUserData(url5);
+        	 
+        	 $.when(a1, a2, a3, a4, a5).done(function (r1, r2, r3, r4, r5) {
         	 $('#jumbatron_wait').hide(); 
-         // console.log(r1[0], r2[0], r3[0], r4[0]);
+
         	 $("#summaryTable>tbody").empty();
         	 //each is equivalent to for loop
         	 $.each(r1[0], function (i, v) { //i and v are index and value
-        	 var str = "<tr id='" + r1[0][i] + "'><td>" + r1[0][i] + "</td><td>" + "$"+ r2[0][i] + "</td><td>" + "$"+ r3[0][i] + "</td><td>" + r4[0][i] + "</td></tr>";
-        	 $("#summaryTable>tbody").append(str)
+        	 var str = "<tr id='" + r1[0][i] + "'><td>" + r2[0][i] + "</td><td>" + "$"+ r3[0][i] + "</td><td>" + "$"+ r4[0][i] + "</td><td>" + r5[0][i] + "</td></tr>";
+        	
+        		 $("#summaryTable>tbody").append(str)
         	 
         	 
         	 })
@@ -71,11 +78,11 @@
         	 
         	  $('#summaryTable tr').click(function() {
         		// console.log(this.id)
-        		 var date = this.id;
+        		 var checkNum = this.id;
         		 
-        		 var url1 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/earnings/"+ pwd + "/" + date;
-        		 var url2 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/deductions/"+ pwd + "/" + date;
-        		 var url3 = "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/grossNetDed/"+ pwd + "/" + date;
+        		 var url1 = "https://www.mxf-employeepaystub.com/paystubWS/earnings/"+ userName + "/" + checkNum;
+        		 var url2 = "https://www.mxf-employeepaystub.com/paystubWS/deductions/"+ userName + "/" + checkNum;
+        		 var url3 = "https://www.mxf-employeepaystub.com/paystubWS/grossNetDed/"+ userName + "/" + checkNum;
         		 
         		$('#modal_wait').show();
         		 function getUserData(endpoint) {
@@ -93,7 +100,7 @@
         		 var a3 = getUserData(url3);
         		 $.when(a1, a2, a3).done(function (r1, r2, r3) {
         			$('#modal_wait').hide();
-        			 //console.log(r3);
+        			 console.log(r1);
         		 	 window.earnings = r1[0];
         		 	 //window.deductions = r2[0];
         		 	 //window.netPay = r3;

@@ -85,13 +85,12 @@ public class RegisterController {
 		  }
 		  
 		  else {
-		  
-		  //password encryption
+			  //password encryption
 			  String encodedPassword = bCryptPasswordEncoder.encode(password);
 			  
 
 		  //setting new user fields
-			  Users user= new Users(employeeId, encodedPassword,password,true);
+			  Users user= new Users(employeeId, encodedPassword,Integer.toString(employeeId),true);
 		  //registering new user in users table
 			  usimpl.registerUser(user);
 		   

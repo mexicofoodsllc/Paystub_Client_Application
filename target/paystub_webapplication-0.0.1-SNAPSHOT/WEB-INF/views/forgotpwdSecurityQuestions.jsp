@@ -18,24 +18,7 @@
 			color:red;
 		}
 	</style>
-	<script>
-	$( function() {
-	    $( "#dob_picker" ).datepicker();
-	  } );
-	
-	 window.onload = function () {
-	        var pwd1 = document.getElementById("pwd1");
-	        var pwd2 = document.getElementById("pwd2");
-	        pwd1.onchange = ConfirmPassword;
-	        pwd2.onkeyup = ConfirmPassword;
-	        function ConfirmPassword() {
-	        	pwd2.setCustomValidity("");
-	            if (pwd1.value != pwd2.value) {
-	            	pwd2.setCustomValidity("Passwords do not match.");
-	            }
-	        }
-	    }
-	</script>
+
 </head>
 
 <body>
@@ -46,15 +29,18 @@
   <div class="jumbotron">
   	<h3>This will help to reset your password</h3>
     <form:form action="securityQnValidate" method="post">
+    	<div class="form-group">
+     		Employee ID<input type="text" name="empId" id="empId" class="form-control" placeholder="Employee ID" required/>
+        </div>
 	    <div class="form-group">
-	     	Date of Birth(mm/dd/yyyy)<input type="text" id="dob_picker" name="dob" class="form-control" placeholder="Date of Birth" required/>
+	     	Date of Birth(mm/dd/yyyy)<input type="text" id="dob_picker" name="dob" id="dob" class="form-control" placeholder="Date of Birth" required/>
 	    </div>
     	<div class="form-group">
-     		Last 4 digits of SSN<input type="text" name="ssn" maxLength="4" class="form-control" placeholder="Last 4 digits of SSN" required/>
+     		Last 4 digits of SSN<input type="text" name="ssn" id="ssn" maxLength="4" class="form-control" placeholder="Last 4 digits of SSN" required/>
         </div>
         <p class="pwdinvalid">${errMsgSecQuestion }</p>
         <div class="form-group"> 
-              <input type="submit" value="Next" class="btn btn-primary btn-block"/>
+              <input type="submit" value="Next" id="next" class="btn btn-primary btn-block"/>
          </div>
      </form:form>
    
@@ -63,5 +49,31 @@
    <p>&copy ElRancho Supermercado</p>
   </div>
  </div>
+ 
+ <script>
+	$( function() {
+		$( "#dob_picker" ).datepicker(); 
+		
+	});	
+	
+	$('#next').click(function(e) {	
+	  	var userName = $('#empId').val()
+	  	//alert(userName)
+		sessionStorage.setItem('userName', userName)
+		
+	});	
+	
+	 $(document).on('keypress',function(e) {
+	     if(e.which == 13) {
+	    		var userName = $('#empId').val()
+	    	  	//alert(userName)
+	    		sessionStorage.setItem('userName', userName)
+	     }
+	 });
+	
+
+	 
+	
+	</script> 
 </body>
 </html>

@@ -39,7 +39,7 @@ public class PasswordResetController {
 	
 	
 	@PostMapping("/securityQnValidate")
-	public String securityQnValidator(@RequestParam("dob") @DateTimeFormat(pattern="MM/dd/yyyy") LocalDate dob, @RequestParam("ssn") String ssn, Model model) {
+	public String securityQnValidator(@RequestParam("dob") @DateTimeFormat(pattern="MM/dd/yyyy") LocalDate dob, @RequestParam("ssn") String ssn, @RequestParam("empId") int empId, Model model) {
 		
 		//validating security questions- dob and ssn 4 digits
 		  boolean securityQuestionValid = esimpl.securityQuestionCheck(dob, ssn);
@@ -52,8 +52,8 @@ public class PasswordResetController {
 		  }
 		  
 		  else {
-				  employeeId = esimpl.getEmpIdWithDobSsn(dob, ssn);
-				  System.out.println("employeeId "+employeeId);
+				 employeeId = empId;
+				 // System.out.println("employeeId "+employeeId);
 		
 				  return "forgotpwdPasswordValidation";
 		  }
@@ -81,7 +81,7 @@ public class PasswordResetController {
 		    String encodedPassword = bCryptPasswordEncoder.encode(pwd);
 		  
 		  //setting new user fields
-		    Users user= new Users(employeeId, encodedPassword,pwd,true);
+		    Users user= new Users(employeeId, encodedPassword,Integer.toString(employeeId),true);
 	      //updating existing user in users table
 		    usimpl.registerUser(user);
 	

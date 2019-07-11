@@ -29,7 +29,7 @@
             width: 50% !important;
          }
 
-		.pwdinvalid{
+		.error{
 			font-size:15px !important;
 			color:red;
 		}
@@ -55,10 +55,15 @@
   
     <form action="home" method="post" id="login-form">
     	<p>Employee Login<p>
+    	
+    	<div class="form-group">
+     		<input type="text" name="empId" id="empId" class="form-control" placeholder="Employee ID" required/>
+     		<div class="error" id="empIderror"></div>
+        </div>
 
     	<div class="form-group">
      		<input type="password" name="pwd" id="password" minlength="6" class="form-control" placeholder="Password" required/>
-			<div class="pwdinvalid"></div>
+     		<div class="error" id="pwdError"></div>
         </div>
 		      <!--  <input type="hidden"
             name="${_csrf.parameterName}"
@@ -98,18 +103,38 @@
  $(document).on('keypress',function(e) {
      if(e.which == 13) {
     	 
+    	 var userName = $('#empId').val()
     	 var password = $('#password').val()
-    	 sessionStorage.setItem('pwd', password)
+    	 
+    	 if(userName!=""&& password!=""){
+    		 sessionStorage.setItem('userName', userName) 
+    		 sessionStorage.setItem('pwd', password)
+    	 }
+    	 
+    	 else if(userName==""&& password==""){
+    		 $('#empIderror').html("<i>Please enter Employee Id</i>");
+    		 $('#pwdError').html("<i>Please enter password</i>");
+    	 }
+    	 else if(userName==""&& password!=""){
+    		 $('#empIderror').html("<i>Please enter Employee Id</i>");
+    	 }
+    	 else if(userName!=""&& password==""){
+    		 $('#empIderror').html("<i>Please enter password</i>");
+    	 }
+    	 
     	 var authorizationHeader;
     	 var isLoginSuccess = false;
     	     
-        var dataPayload = {
-    	                "userName" : password,
+        if(userName!=""&& password!=""){
+    	 
+        	var dataPayload = {
+    	                "userName" : userName,
     	                "password" : password,
     	         };
         
     	        $.ajax({
-    	                 url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/login",
+    	                 url: "https://www.mxf-employeepaystub.com/paystubWS/login",
+    	                 crossDomain: true,
     	                 data:JSON.stringify(dataPayload),
     	                 type:'POST',
     	                 async: false,
@@ -122,37 +147,62 @@
                	   		 $("#login-form").submit();
                	   		 
     	             });
-     }
+                   	    
     	        if(isLoginSuccess === false ) {
-                    // Login failed
-               	 
-	       			console.log("Password is incorrect"); 
-	                $('.pwdinvalid').html("Password is incorrect!");
-	                e.preventDefault();
-	                 
-    			}
+                             // Login failed
+                        	 
+        	       //console.log("Password is incorrect"); 
+        	       $('#empIderror').empty();
+        	       $('#pwdError').html("<i>Please correct your Employee ID and/or Password!</i>");
+        	       e.preventDefault();
+        	                 
+             			}
+         
+        } 
+     }
      
  }); 
  
  $('#login').click(function(e) {
 
+	 var userName = $('#empId').val()
 	 var password = $('#password').val()
-	 sessionStorage.setItem('pwd', password)
+	 
+	 if(userName!=""&& password!=""){
+		 sessionStorage.setItem('userName', userName) 
+		 sessionStorage.setItem('pwd', password)
+	 }
+	 
+	 else if(userName==""&& password==""){
+		 $('#empIderror').html("<i>Please enter Employee Id</i>");
+		 $('#pwdError').html("<i>Please enter password</i>");
+	 }
+	 else if(userName==""&& password!=""){
+		 $('#empIderror').html("<i>Please enter Employee Id</i>");
+	 }
+	 else if(userName!=""&& password==""){
+		 $('#empIderror').empty();
+		 $('#pwdError').html("<i>Please enter password</i>");
+	 }
+	 
 	 var authorizationHeader;
 	 var isLoginSuccess = false;
 	     
-    var dataPayload = {
-	                "userName" : password,
+    if(userName!=""&& password!=""){
+	 
+    	var dataPayload = {
+	                "userName" : userName,
 	                "password" : password,
 	         };
     
 	        $.ajax({
-	                 url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/login",
+	                 url: "https://www.mxf-employeepaystub.com/paystubWS/login",
 	                 data:JSON.stringify(dataPayload),
 	                 type:'POST',
+	                 crossDomain: true,
 	                 async: false,
 	                 timeout: 10000,
-	                 contentType: 'application/json',
+	                 contentType: 'application/jsonp',
 	                 
 	             }).done(function(data,status, xhr) {
               		 sessionStorage.setItem('authToken', xhr.getResponseHeader('Authorization'));
@@ -164,13 +214,14 @@
        if(isLoginSuccess === false ) {
                          // Login failed
                     	 
-    	       console.log("Password is incorrect"); 
-    	                $('.pwdinvalid').html("Password is incorrect!");
-    	                e.preventDefault();
+    	       //console.log("Password is incorrect"); 
+    	       $('#empIderror').empty();
+    	       $('#pwdError').html("<i>Please correct your Employee ID and/or Password!</i>");
+    	       e.preventDefault();
     	                 
          			}
      
-      
+    } 
 	           
  });
 

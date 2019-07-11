@@ -31,7 +31,7 @@ public class EmployeeServiceTest {
     * The init() method runs MockitoAnnotations.initMocks(this) using this instance as the argument.
     *  This sets up our mocks before each test.
 	Passing this instance will make Mockito acknowledge the @InjectMocks and the @Mocks annotations and that they should be pushed together.
- 	since the PasswordResetController contains an employeeRepository in it, the Mockito framework will go ahead and set that up for us, 
+ 	since the EmployeeServiceImpl contains an employeeRepository in it, the Mockito framework will go ahead and set that up for us, 
  	much like the Spring container would via dependency injection.
     */
 	

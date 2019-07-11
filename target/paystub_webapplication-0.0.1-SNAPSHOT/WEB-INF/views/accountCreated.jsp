@@ -136,17 +136,18 @@
 	<script>
     
     $('#login').click(function(e) {
-
+     
+     var userName = sessionStorage.getItem('userName')
    	 var password = sessionStorage.getItem('pwd')
    	
    	 
    	  var dataPayload = {
-   	                "userName" : password,
+   	                "userName" : userName,
    	                "password" : password
    	         };
 
    	 $.ajax({
-            url: "http://ec2-52-54-221-79.compute-1.amazonaws.com:8080/paystubWS/login",
+            url: "https://www.mxf-employeepaystub.com/paystubWS/login",
             data:JSON.stringify(dataPayload),
             type:'POST',
             async: false,

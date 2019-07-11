@@ -37,7 +37,7 @@
 	            if (pwd1.value != pwd2.value) {
 	            	pwd2.setCustomValidity("Passwords do not match.");
 	            }
-	            else{
+	           else{
 	            	password = $('#pwd1').val()
 	            	sessionStorage.setItem('pwd', password);
 	            }

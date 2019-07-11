@@ -58,6 +58,7 @@
    		
         th{
        		width:110px;
+       		cursor: default !important;
         }
 
         .noPay{

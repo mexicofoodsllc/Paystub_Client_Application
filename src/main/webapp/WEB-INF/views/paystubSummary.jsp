@@ -44,7 +44,7 @@
                  
             	<ul class="nav navbar-nav navbar-right">
                     <li style="color:#ba150f;">
-						<form:form action="logout" method="post">
+						<form:form action="/" method="get">
 							<!-- <img src="images/logout.jpg" width="50" height="50" style="margin-left: 10px;"  id="img"/><br> -->
   							 <input type="submit" class="logout" value="Logout" id="logout">
   						</form:form>

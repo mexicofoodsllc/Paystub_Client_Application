@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<div class="jumbatron">
-			<h1>Please register <a href="http://ec2-3-90-133-23.compute-1.amazonaws.com:8080/paystub_webapp-0.0.1-SNAPSHOT/login">here</a> to reset password</h1>
+			<h1>Please register <a href="https://www.mxf-employeepaystub.com ">here</a> to reset password</h1>
 		</div>
 	</div>
 </body>

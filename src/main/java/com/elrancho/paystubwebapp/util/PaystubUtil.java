@@ -127,9 +127,9 @@ public class PaystubUtil {
 		int totalHours=0;
 		
 		LocalDate saturdayDatepicker2 = dayConverter(date);
-		 List<Integer> hours = psimpl.findTotalHours(saturdayDatepicker2,employeeId);
+		 List<Float> hours = psimpl.findTotalHours(saturdayDatepicker2,employeeId);
 		 
-		 for(Integer hour:hours) {
+		 for(float hour:hours) {
 			 totalHours += hour;
 		 }
 		return totalHours;
